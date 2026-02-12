@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Happy Valentine's Day</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background: black;
+  text-align: center;
+  font-family: Arial;
+}
+
+h1 {
+  margin-top: 100px;
+  font-size: 40px;
+  color: red;
+}
+
+button {
+  padding: 15px 40px;
+  font-size: 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 20px;
+}
+
+#yes { background: red; color: white; }
+#no { background: red; color: white; }
+
+.heart {
+  position: fixed;
+  bottom: -10px;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  from {transform: translateY(0); opacity:1;}
+  to {transform: translateY(-800px); opacity:0;}
+}
+
+#countdown {
+  font-size: 60px;
+  color: white;
+  margin-top: 30px;
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<h1 id="question">Do you love me? ❤️</h1>
+<button id="yes">YES</button>
+<button id="no">NO</button>
+
+<div id="countdown">Loading...</div>
+
+<div id="gifBox" style="display:none;">
+    <img src="https://gifdb.com/images/high/animated-cute-498-x-404-gif-540q7skjierlswg4.gif" width="400">
+</div>
+
+<script>
+// Floating hearts
+function createHeart(){
+  let heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 30 + 10 + "px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart, 300);
+
+// YES button with countdown
+document.getElementById("yes").onclick = function(){
+  this.style.display = "none";
+  document.getElementById("no").style.display = "none";
+
+  let cd = document.getElementById("countdown");
+  cd.style.display = "block";
+
+  let count = 3;
+  cd.innerHTML = "Loading... " + count;
+
+  let timer = setInterval(function(){
+    count--;
+    if(count > 0){
+      cd.innerHTML = "Loading... " + count;
+    } 
+    else {
+      clearInterval(timer);
+      cd.style.display = "none";
+
+      // Show love text AFTER countdown
+      document.getElementById("question").innerHTML = "I love you too ❤️";
+      document.getElementById("gifBox").style.display = "block";
+    }
+  }, 1000);
+};
+
+// NO button runs away
+document.getElementById("no").onmouseover = function(){
+  this.style.position = "absolute";
+  this.style.left = Math.random()*80 + "%";
+  this.style.top = Math.random()*80 + "%";
+};
+</script>
+
+</body>
+</html>
